@@ -16,7 +16,7 @@
             <div class="auth-form-wrapper px-4 py-5">
               <a href="#" class="noble-ui-logo d-block mb-2">Simple Amanah<span>Lengkap</span></a>
               <h5 class="text-muted fw-normal mb-4">Daftar Akun Gratis!</h5>
-              <form class="forms-sample" method="POST" action="/register/">
+              <form class="forms-sample" method="POST" action="{{ url('/register/') }}">
                 @csrf
                 <div class="mb-3">
                   <label for="exampleInputUsername1" class="form-label">Nama Lengkap</label>
