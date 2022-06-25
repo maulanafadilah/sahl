@@ -15,7 +15,14 @@ class HomeController extends Controller
         $asset = Asset::select(DB::raw('SUM(nominal) as jumlah_asset'))->where('id_pengguna', auth()->user()->id)->get()[0];
         $capital = Capital::select(DB::raw('SUM(nominal) as jumlah_modal'))->where('id_pengguna', auth()->user()->id)->get()[0];
         $debt = Debt::select(DB::raw('SUM(nominal) as jumlah_utang'))->where('id_pengguna', auth()->user()->id)->get()[0];
-        return view('dashboard', compact('asset', 'capital', 'debt'));
+
+        $data1 = json_decode($asset->jumlah_asset, true);
+        $data2 = json_decode($debt->jumlah_utang, true);
+        $data3 = json_decode($capital->jumlah_modal, true);
+        
+        $data = [$data1, $data2, $data3];
+        // return $data;
+        return view('dashboard', compact('asset', 'capital', 'debt', 'data1', 'data2', 'data3'));
     }
     public function buku_besar(Request $request)
     {

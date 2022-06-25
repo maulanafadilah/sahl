@@ -15,7 +15,7 @@ class DebtController extends Controller
      */
     public function index()
     {
-        $create = 'Asset';
+        $create = 'Utang';
         $account = Account::select('id', 'nomor_akun', 'nama_akun')->where('nomor_akun', 'LIKE', '2%')->get();
         return view('sahl.input.debt.create', compact('create', 'account'));
     }
