@@ -5,7 +5,9 @@ use App\Http\Controllers\GeneralJournalController;
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\UtangController;
 use App\Http\Controllers\ModalController;
+use App\Http\Controllers\SuperBookController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\AccountController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +28,12 @@ Route::resource('asset', AssetController::class)->middleware('auth');
 Route::resource('utang', DebtController::class)->middleware('auth');
 Route::resource('modal', CapitalController::class)->middleware('auth');
 Route::resource('transaksi', TransactionController::class)->middleware('auth');
-Route::get('buku-besar', 'App\Http\Controllers\HomeController@buku_besar')->middleware('auth');
+Route::resource('buku-besar', SuperBookController::class)->middleware('auth');
+Route::resource('buku-besar.accounts', AccountController::class)->scoped([
+    'account' => 'nama_akun',
+])->middleware('auth');
+
+Route::get('laba-rugi', 'App\Http\Controllers\HomeController@laba_rugi')->middleware('auth');
 
 Route::get('/login', 'App\Http\Controllers\LoginController@index')->name('login')->middleware('guest');
 Route::post('/login', 'App\Http\Controllers\LoginController@authenticate');

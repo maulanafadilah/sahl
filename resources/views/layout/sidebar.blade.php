@@ -60,6 +60,12 @@
           <span class="link-title">Neraca Saldo</span>
         </a>
       </li>
+      <li class="nav-item {{ active_class(['laba-rugi*']) }}">
+        <a href="{{ url('laba-rugi') }}" class="nav-link">
+          <i class="link-icon" data-feather="pie-chart"></i>
+          <span class="link-title">L. Laba Rugi</span>
+        </a>
+      </li>
     </ul>
   </div>
 </nav>

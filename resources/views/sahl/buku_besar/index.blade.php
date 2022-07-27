@@ -11,11 +11,23 @@
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="#">Buku Besar</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Tabel Buku Besar</li>
+    <li class="breadcrumb-item active" aria-current="page">Pilih Tahun</li>
   </ol>
 </nav>
-
-
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">Pilih Tahun</h6>
+              @foreach($year as $item)
+              <ul class="list-group">
+                <a href="buku-besar/{{$item->year}}"><li class="list-group-item d-flex justify-content-between align-items-center">{{$item->year}} <span><button class="btn btn-primary">Lihat</button></span></li></a>
+              </ul>
+              @endforeach
+          </div>
+      </div>
+    </div>
+</div>
 @endsection
 
 @push('plugin-scripts')
