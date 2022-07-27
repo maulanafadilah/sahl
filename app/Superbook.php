@@ -13,6 +13,7 @@ class Superbook extends Model
         'nama_akun',
         'total_saldo',
         'jenis_saldo',
+        'tahun',
         'id_pengguna',
     ];
 }

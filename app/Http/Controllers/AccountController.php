@@ -66,13 +66,13 @@ class AccountController extends Controller
             $total_saldo_kredit= false;
 
             // check if the value is the same
-            $check_db = Superbook::select('total_saldo')->where('nama_akun', $acc)->where('jenis_saldo', 'Debit')->where('id_pengguna', $id_pengguna)->first();
+            $check_db = Superbook::select('total_saldo')->where('nama_akun', $acc)->where('jenis_saldo', 'Debit')->where('id_pengguna', $id_pengguna)->where('tahun', $year)->first();
             // return $check_db;
             if($check_db == null){
-                Superbook::create(['nama_akun' => $acc, 'total_saldo' => $total_saldo_debit, 'jenis_saldo' => 'Debit', 'id_pengguna' => $id_pengguna]);
+                Superbook::create(['nama_akun' => $acc, 'total_saldo' => $total_saldo_debit, 'jenis_saldo' => 'Debit', 'tahun'=>$year, 'id_pengguna' => $id_pengguna]);
                 return view('sahl.buku_besar.detail', compact('year', 'acc', 'id_pengguna', 'saldo_awal_debit', 'saldo_awal_kredit', 'posting_debit', 'posting_kredit', 'total_saldo_debit', 'total_saldo_kredit'));
             } elseif($check_db->total_saldo != $total_saldo_debit){
-                Superbook::where('nama_akun', $acc)->where('jenis_saldo', 'Debit')->where('id_pengguna', $id_pengguna)->update(['total_saldo' => $total_saldo_debit]);
+                Superbook::where('nama_akun', $acc)->where('jenis_saldo', 'Debit')->where('tahun', $year)->where('id_pengguna', $id_pengguna)->update(['total_saldo' => $total_saldo_debit]);
                 return view('sahl.buku_besar.detail', compact('year', 'acc', 'id_pengguna', 'saldo_awal_debit', 'saldo_awal_kredit', 'posting_debit', 'posting_kredit', 'total_saldo_debit', 'total_saldo_kredit'));
             } else{
                 return view('sahl.buku_besar.detail', compact('year', 'acc', 'id_pengguna', 'saldo_awal_debit', 'saldo_awal_kredit', 'posting_debit', 'posting_kredit', 'total_saldo_debit', 'total_saldo_kredit'));
@@ -83,12 +83,12 @@ class AccountController extends Controller
             $total_saldo_debit = false;
 
             // check if the value is the same
-            $check_db = Superbook::select('total_saldo')->where('nama_akun', $acc)->where('jenis_saldo', 'Kredit')->where('id_pengguna', $id_pengguna)->first();
+            $check_db = Superbook::select('total_saldo')->where('nama_akun', $acc)->where('jenis_saldo', 'Kredit')->where('id_pengguna', $id_pengguna)->where('tahun', $year)->first();
             if($check_db == null){
-                Superbook::create(['nama_akun' => $acc, 'total_saldo' => $total_saldo_kredit, 'jenis_saldo' => 'Kredit', 'id_pengguna' => $id_pengguna]);
+                Superbook::create(['nama_akun' => $acc, 'total_saldo' => $total_saldo_kredit, 'jenis_saldo' => 'Kredit', 'tahun'=>$year,'id_pengguna' => $id_pengguna]);
                 return view('sahl.buku_besar.detail', compact('year', 'acc', 'id_pengguna', 'saldo_awal_debit', 'saldo_awal_kredit', 'posting_debit', 'posting_kredit', 'total_saldo_debit', 'total_saldo_kredit'));
             } elseif($check_db->total_saldo != $total_saldo_kredit){
-                Superbook::where('nama_akun', $acc)->where('jenis_saldo', 'Kredit')->where('id_pengguna', $id_pengguna)->update(['total_saldo' => $total_saldo_kredit]);
+                Superbook::where('nama_akun', $acc)->where('jenis_saldo', 'Kredit')->where('tahun', $year)->where('id_pengguna', $id_pengguna)->update(['total_saldo' => $total_saldo_kredit]);
                 return view('sahl.buku_besar.detail', compact('year', 'acc', 'id_pengguna', 'saldo_awal_debit', 'saldo_awal_kredit', 'posting_debit', 'posting_kredit', 'total_saldo_debit', 'total_saldo_kredit'));
             } else{
                 return view('sahl.buku_besar.detail', compact('year', 'acc', 'id_pengguna', 'saldo_awal_debit', 'saldo_awal_kredit', 'posting_debit', 'posting_kredit', 'total_saldo_debit', 'total_saldo_kredit'));

@@ -55,11 +55,12 @@ class SuperBookController extends Controller
         $year = $id;
         $id_pengguna = auth()->user()->id;
         $account = Account::select('nomor_akun', 'nama_akun')->get();
-        $kas_awal = Asset::select(DB::raw('SUM(nominal) as nominal'))->where('nama_asset', 'Kas')->where('id_pengguna', $id_pengguna)->where('created_at', 'LIKE', '%'.$id.'%')->first();
-        $kas_posting_debit = General_journal::select(DB::raw('SUM(general_journals.debit) as gdebit'))->where('general_journals.id_pengguna', $id_pengguna)->where('general_journals.tanggal', 'LIKE', '%'.$id.'%')->where('transactions.debit', 'Kas')->join('transactions', 'general_journals.id_transaksi', '=', 'transactions.id')->first();
+        // $kas_awal = Asset::select(DB::raw('SUM(nominal) as nominal'))->where('nama_asset', 'Kas')->where('id_pengguna', $id_pengguna)->where('created_at', 'LIKE', '%'.$id.'%')->first();
+        // $kas_posting_debit = General_journal::select(DB::raw('SUM(general_journals.debit) as gdebit'))->where('general_journals.id_pengguna', $id_pengguna)->where('general_journals.tanggal', 'LIKE', '%'.$id.'%')->where('transactions.debit', 'Kas')->join('transactions', 'general_journals.id_transaksi', '=', 'transactions.id')->first();
 
         // return $kas_posting_debit;
-        return view('sahl.buku_besar.show', compact('year', 'account', 'kas_awal', 'kas_posting_debit'));
+        // return view('sahl.buku_besar.show', compact('year', 'account', 'kas_awal', 'kas_posting_debit'));
+        return view('sahl.buku_besar.show', compact('year', 'account'));
     }
 
     /**
