@@ -87,14 +87,14 @@
                                 </td>
                                 <td>
                                   @if($total_saldo_debit == true)
-                                  Rp{{$total_saldo_debit}}
+                                  Rp{{$total_saldo_debit->total_saldo_debit}}
                                   @else
                                   -
                                   @endif
                                 </td>
                                 <td>
                                   @if($total_saldo_kredit == true)
-                                  Rp{{$total_saldo_kredit}}
+                                  Rp{{$total_saldo_kredit->total_saldo_kredit}}
                                   @else
                                   -
                                   @endif
