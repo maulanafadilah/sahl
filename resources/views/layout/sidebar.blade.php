@@ -53,11 +53,17 @@
           <i class="link-icon" data-feather="book"></i>
           <span class="link-title">Buku Besar</span>
         </a>
+        <li class="nav-item {{ active_class(['neraca-saldo*']) }}">
+          <a href="{{ url('/neraca_saldo') }}" class="nav-link">
+            <i class="link-icon" data-feather="dollar-sign"></i>
+            <span class="link-title">Neraca Saldo</span>
+          </a>
+        </li>
       </li>
       <li class="nav-item {{ active_class(['neraca-saldo*']) }}">
-        <a href="{{ url('#') }}" class="nav-link">
-          <i class="link-icon" data-feather="dollar-sign"></i>
-          <span class="link-title">Neraca Saldo</span>
+        <a href="{{ url('/neraca_awal') }}" class="nav-link">
+          <i class="link-icon" data-feather="book"></i>
+          <span class="link-title">Laporan Neraca</span>
         </a>
       </li>
     </ul>
