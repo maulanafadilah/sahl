@@ -8,6 +8,8 @@ use App\Http\Controllers\ModalController;
 use App\Http\Controllers\SuperBookController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\LabaRugiController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,7 +35,7 @@ Route::resource('buku-besar.accounts', AccountController::class)->scoped([
     'account' => 'nama_akun',
 ])->middleware('auth');
 
-Route::get('laba-rugi', 'App\Http\Controllers\HomeController@laba_rugi')->middleware('auth');
+Route::resource('laba-rugi', LabaRugiController::class)->middleware('auth');
 
 Route::get('/login', 'App\Http\Controllers\LoginController@index')->name('login')->middleware('guest');
 Route::post('/login', 'App\Http\Controllers\LoginController@authenticate');

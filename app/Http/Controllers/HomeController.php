@@ -7,6 +7,7 @@ use App\Asset;
 use App\Capital;
 use App\Debt;
 use App\General_journal;
+use App\Superbook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -28,39 +29,22 @@ class HomeController extends Controller
     }
     public function laba_rugi()
     {
-        $penjualan = Account::select('nama_akun')->where('nama_akun', 'LIKE', '%Penjualan%')->orderBy("nomor_akun")->limit('3')->get();
-        $pembelian = Account::select('nama_akun')->where('nama_akun', 'LIKE', '%Pembelian%')->orderBy("nomor_akun")->get();
+        // $penjualan = Account::select('nama_akun')->where('nama_akun', 'LIKE', '%Penjualan%')->orderBy("nomor_akun")->groupBy('nama_akun')->limit('3')->get();
+        // $penjualan2 = Account::find('1');
+        // return $penjualan2;
+        // $merge = $penjualan->merge($penjualan);
+        // return $merge;
+        // foreach($penjualan as $item){
+        //     $nominal_penjualan = Superbook::select('total_saldo', 'nama_akun')->where('nama_akun', $item->nama_akun)->get();
+        //     // echo $nominal_penjualan;
+        // }
+        // // $nominal_penjualan = toJson($nominal_penjualan);
 
-        // return $penjualan;
-        $year = 2022;
-        $id_pengguna = auth()->user()->id;
-        
-            foreach($penjualan as $item){
-                $saldo_awal_debit = Asset::select(DB::raw('SUM(assets.nominal) as nominal_debit'))->where('assets.nama_asset', $item->nama_akun)->where('assets.id_pengguna', $id_pengguna)->where('assets.created_at', 'LIKE', '%'.$year.'%')->where('accounts.tipe_saldo', 'Debit')->join('accounts', 'assets.nama_asset', '=', 'accounts.nama_akun')->first();
-                $saldo_awal_kredit = Asset::select(DB::raw('SUM(assets.nominal) as nominal_kredit'))->where('assets.nama_asset', $item->nama_akun)->where('assets.id_pengguna', $id_pengguna)->where('assets.created_at', 'LIKE', '%'.$year.'%')->where('accounts.tipe_saldo', 'Kredit')->join('accounts', 'assets.nama_asset', '=', 'accounts.nama_akun')->first();
+        // // $penjualan_bersih = array_sum($item_penjualan->total_saldo);
+        // return $nominal_penjualan;
+        // $pembelian = Account::select('nama_akun')->where('nama_akun', 'LIKE', '%Pembelian%')->orderBy("nomor_akun")->get();
 
-                $posting_debit = General_journal::select(DB::raw('SUM(general_journals.debit) as pdebit'))->where('general_journals.id_pengguna', $id_pengguna)->where('general_journals.tanggal', 'LIKE', '%'.$year.'%')->where('transactions.debit', $item->nama_akun)->join('transactions', 'general_journals.id_transaksi', '=', 'transactions.id')->first();
-                $posting_kredit = General_journal::select(DB::raw('SUM(general_journals.kredit) as pkredit'))->where('general_journals.id_pengguna', $id_pengguna)->where('general_journals.tanggal', 'LIKE', '%'.$year.'%')->where('transactions.kredit', $item->nama_akun)->join('transactions', 'general_journals.id_transaksi', '=', 'transactions.id')->first();
-
-                if($saldo_awal_debit->nominal_debit != null || $posting_debit != null){
-                    $total_saldo_debit = $saldo_awal_debit->nominal_debit + $posting_debit->pdebit - $posting_kredit->pkredit;
-                    $total_saldo_kredit= false;
-                    // echo $total_saldo_debit;
-                } elseif ($saldo_awal_kredit->nominal_kredit != null || $posting_kredit != null){
-                    $total_saldo_kredit= $saldo_awal_kredit->nominal_kredit + $posting_kredit->pkredit - $posting_debit->pdebit;
-                    $total_saldo_debit = false;
-                    echo $total_saldo_kredit;
-                } else{
-                    $total_saldo_kredit= false;
-                    $total_saldo_debit = false;
-                }
-            }
-
-            
-
-        
-            
-        // return view('sahl.laba-rugi', compact('penjualan', 'pembelian', ''));
+        // return view('sahl.laba-rugi');
     }
 
 }
