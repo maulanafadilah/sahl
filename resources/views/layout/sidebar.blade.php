@@ -28,16 +28,16 @@
         <div class="collapse {{ show_class(['input/*']) }}" id="input">
           <ul class="nav sub-menu">
             <li class="nav-item">
-              <a href="{{ url('/asset') }}" class="nav-link {{ active_class(['asset']) }}">Asset</a>
+              <a href="{{ url('/asset') }}" class="nav-link {{ active_class(['asset*']) }}">Asset</a>
             </li>
             <li class="nav-item">
-              <a href="{{ url('/utang') }}" class="nav-link {{ active_class(['utang']) }}">Utang</a>
+              <a href="{{ url('/utang') }}" class="nav-link {{ active_class(['utang*']) }}">Utang</a>
             </li>
             <li class="nav-item">
-              <a href="{{ url('/modal') }}" class="nav-link {{ active_class(['modal']) }}">Modal</a>
+              <a href="{{ url('/modal') }}" class="nav-link {{ active_class(['modal*']) }}">Modal</a>
             </li>
             <li class="nav-item">
-              <a href="{{ url('/transaksi') }}" class="nav-link {{ active_class(['transaksi']) }}">Transaksi</a>
+              <a href="{{ url('/transaksi') }}" class="nav-link {{ active_class(['transaksi*']) }}">Transaksi</a>
             </li>
           </ul>
         </div>
@@ -64,6 +64,12 @@
         <a href="{{ url('laba-rugi') }}" class="nav-link">
           <i class="link-icon" data-feather="pie-chart"></i>
           <span class="link-title">L. Laba Rugi</span>
+        </a>
+      </li>
+      <li class="nav-item {{ active_class(['perubahan-modal*']) }}">
+        <a href="{{ url('perubahan-modal') }}" class="nav-link">
+          <i class="link-icon" data-feather="pie-chart"></i>
+          <span class="link-title">L. Perubahan Modal</span>
         </a>
       </li>
     </ul>

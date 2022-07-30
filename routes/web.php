@@ -9,6 +9,7 @@ use App\Http\Controllers\SuperBookController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\LabaRugiController;
+use App\Http\Controllers\PerubahanModalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,7 @@ Route::resource('buku-besar.accounts', AccountController::class)->scoped([
 ])->middleware('auth');
 
 Route::resource('laba-rugi', LabaRugiController::class)->middleware('auth');
+Route::resource('perubahan-modal', PerubahanModalController::class)->middleware('auth');
 
 Route::get('/login', 'App\Http\Controllers\LoginController@index')->name('login')->middleware('guest');
 Route::post('/login', 'App\Http\Controllers\LoginController@authenticate');

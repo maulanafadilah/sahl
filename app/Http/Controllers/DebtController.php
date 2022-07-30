@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Debt;
 use App\Account;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DebtController extends Controller
 {
@@ -15,9 +16,13 @@ class DebtController extends Controller
      */
     public function index()
     {
-        $create = 'Utang';
-        $account = Account::select('id', 'nomor_akun', 'nama_akun')->where('nomor_akun', 'LIKE', '2%')->get();
-        return view('sahl.input.debt.create', compact('create', 'account'));
+        // $create = 'Utang';
+        // $account = Account::select('id', 'nomor_akun', 'nama_akun')->where('nomor_akun', 'LIKE', '2%')->get();
+        // return view('sahl.input.debt.create', compact('create', 'account'));
+        $debt = Debt::select('id', 'nama_utang', 'nominal', 'keterangan', DB::raw('DATE(created_at) as date'))->where('id_pengguna', auth()->user()->id)->get();
+
+        // return $debt;
+        return view('sahl.input.debt.index', compact('debt'));
     }
 
     /**
@@ -27,7 +32,9 @@ class DebtController extends Controller
      */
     public function create()
     {
-        //
+        $create = 'Utang';
+        $account = Account::select('id', 'nomor_akun', 'nama_akun')->where('nomor_akun', 'LIKE', '2%')->get();
+        return view('sahl.input.debt.create', compact('create', 'account'));
     }
 
     /**
@@ -46,7 +53,7 @@ class DebtController extends Controller
         ]);
 
         Debt::create($validatedData + ['id_pengguna'=>auth()->user()->id]);
-        return redirect('asset')->with('success', 'Berhasil Menambahkan Utang!');
+        return redirect('utang')->with('success', 'Berhasil Menambahkan Utang!');
     }
 
     /**
@@ -66,9 +73,14 @@ class DebtController extends Controller
      * @param  \App\Debt  $debt
      * @return \Illuminate\Http\Response
      */
-    public function edit(Debt $debt)
+    public function edit($id)
     {
-        //
+        $account = Account::select('id', 'nomor_akun', 'nama_akun')->where('nomor_akun', 'LIKE', '2%')->get();
+        $debt = Debt::select('*')->where('id', $id)->get()[0];
+
+
+        // return $debt;
+        return view('sahl.input.debt.edit', compact( 'account', 'debt'));
     }
 
     /**
@@ -78,9 +90,16 @@ class DebtController extends Controller
      * @param  \App\Debt  $debt
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Debt $debt)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'nama_utang' => 'required',
+            'nominal' => 'required',
+            'keterangan' => 'nullable',
+        ]);
+
+        Debt::where('id', $id)->update($validatedData);
+        return redirect('utang')->with('success', 'Berhasil Mengubah Utang!');
     }
 
     /**
@@ -89,8 +108,9 @@ class DebtController extends Controller
      * @param  \App\Debt  $debt
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Debt $debt)
+    public function destroy($id)
     {
-        //
+        Debt::destroy($id);
+        return redirect('utang')->with('success', 'Berhasil Menghapus Utang!');
     }
 }

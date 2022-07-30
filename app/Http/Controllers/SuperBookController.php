@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Asset;
 use App\Account;
+use App\Capital;
+use App\Debt;
 use App\Superbook;
 use App\General_journal;
 use Illuminate\Http\Request;
@@ -59,8 +61,29 @@ class SuperBookController extends Controller
         $account = Account::select('nomor_akun', 'nama_akun', 'tipe_saldo')->get();
 
         foreach($account as $item){
-            $saldo_awal_debit = Asset::select(DB::raw('SUM(assets.nominal) as nominal_debit'), 'nama_asset')->where('assets.nama_asset', $item->nama_akun)->where('assets.id_pengguna', $id_pengguna)->where('assets.created_at', 'LIKE', '%'.$year.'%')->where('accounts.tipe_saldo', 'Debit')->groupBy('nama_asset')->join('accounts', 'assets.nama_asset', '=', 'accounts.nama_akun')->first();
-            $saldo_awal_kredit = Asset::select(DB::raw('SUM(assets.nominal) as nominal_kredit'), 'nama_asset')->where('assets.nama_asset', $item->nama_akun)->where('assets.id_pengguna', $id_pengguna)->where('assets.created_at', 'LIKE', '%'.$year.'%')->where('accounts.tipe_saldo', 'Kredit')->groupBy('nama_asset')->join('accounts', 'assets.nama_asset', '=', 'accounts.nama_akun')->first();
+            $check_input = Account::select('jenis_input', 'nama_akun')->where('nama_akun', $item->nama_akun)->first();
+            switch(true){
+                case($check_input->jenis_input == 1):
+                    $saldo_awal_debit = Asset::select(DB::raw('SUM(assets.nominal) as nominal_debit'), 'nama_asset')->where('assets.nama_asset', $item->nama_akun)->where('assets.id_pengguna', $id_pengguna)->where('assets.created_at', 'LIKE', '%'.$year.'%')->where('accounts.tipe_saldo', 'Debit')->groupBy('nama_asset')->join('accounts', 'assets.nama_asset', '=', 'accounts.nama_akun')->first();
+                    $saldo_awal_kredit = Asset::select(DB::raw('SUM(assets.nominal) as nominal_kredit'), 'nama_asset')->where('assets.nama_asset', $item->nama_akun)->where('assets.id_pengguna', $id_pengguna)->where('assets.created_at', 'LIKE', '%'.$year.'%')->where('accounts.tipe_saldo', 'Kredit')->groupBy('nama_asset')->join('accounts', 'assets.nama_asset', '=', 'accounts.nama_akun')->first();
+                    break;
+                case($check_input->jenis_input == 2):
+                    $saldo_awal_debit = Debt::select(DB::raw('SUM(debts.nominal) as nominal_debit'), 'nama_utang')->where('debts.nama_utang', $item->nama_akun)->where('debts.id_pengguna', $id_pengguna)->where('debts.created_at', 'LIKE', '%'.$year.'%')->where('accounts.tipe_saldo', 'Debit')->groupBy('nama_utang')->join('accounts', 'debts.nama_utang', '=', 'accounts.nama_akun')->first();
+                    $saldo_awal_kredit = Debt::select(DB::raw('SUM(debts.nominal) as nominal_kredit'), 'nama_utang')->where('debts.nama_utang', $item->nama_akun)->where('debts.id_pengguna', $id_pengguna)->where('debts.created_at', 'LIKE', '%'.$year.'%')->where('accounts.tipe_saldo', 'Kredit')->groupBy('nama_utang')->join('accounts', 'debts.nama_utang', '=', 'accounts.nama_akun')->first();
+                    // var_dump($saldo_awal_kredit);
+                    // die;
+                    break;
+                case($check_input->jenis_input == 3):
+                    $saldo_awal_debit = Capital::select(DB::raw('SUM(capitals.nominal) as nominal_debit'), 'nama_modal')->where('capitals.nama_modal', $item->nama_akun)->where('capitals.id_pengguna', $id_pengguna)->where('capitals.created_at', 'LIKE', '%'.$year.'%')->where('accounts.tipe_saldo', 'Debit')->groupBy('nama_modal')->join('accounts', 'capitals.nama_modal', '=', 'accounts.nama_akun')->first();
+                    $saldo_awal_kredit = Capital::select(DB::raw('SUM(capitals.nominal) as nominal_kredit'), 'nama_modal')->where('capitals.nama_modal', $item->nama_akun)->where('capitals.id_pengguna', $id_pengguna)->where('capitals.created_at', 'LIKE', '%'.$year.'%')->where('accounts.tipe_saldo', 'Kredit')->groupBy('nama_modal')->join('accounts', 'capitals.nama_modal', '=', 'accounts.nama_akun')->first();
+                    break;
+                case($check_input->jenis_input == 0):
+                    $saldo_awal_debit = Asset::select(DB::raw('SUM(assets.nominal) as nominal_debit'), 'nama_asset')->where('assets.nama_asset', $item->nama_akun)->where('assets.id_pengguna', $id_pengguna)->where('assets.created_at', 'LIKE', '%'.$year.'%')->where('accounts.tipe_saldo', 'Debit')->groupBy('nama_asset')->join('accounts', 'assets.nama_asset', '=', 'accounts.nama_akun')->first();
+                    $saldo_awal_kredit = Asset::select(DB::raw('SUM(assets.nominal) as nominal_kredit'), 'nama_asset')->where('assets.nama_asset', $item->nama_akun)->where('assets.id_pengguna', $id_pengguna)->where('assets.created_at', 'LIKE', '%'.$year.'%')->where('accounts.tipe_saldo', 'Kredit')->groupBy('nama_asset')->join('accounts', 'assets.nama_asset', '=', 'accounts.nama_akun')->first();
+                    break;
+            }
+            // $saldo_awal_debit = Asset::select(DB::raw('SUM(assets.nominal) as nominal_debit'), 'nama_asset')->where('assets.nama_asset', $item->nama_akun)->where('assets.id_pengguna', $id_pengguna)->where('assets.created_at', 'LIKE', '%'.$year.'%')->where('accounts.tipe_saldo', 'Debit')->groupBy('nama_asset')->join('accounts', 'assets.nama_asset', '=', 'accounts.nama_akun')->first();
+            // $saldo_awal_kredit = Asset::select(DB::raw('SUM(assets.nominal) as nominal_kredit'), 'nama_asset')->where('assets.nama_asset', $item->nama_akun)->where('assets.id_pengguna', $id_pengguna)->where('assets.created_at', 'LIKE', '%'.$year.'%')->where('accounts.tipe_saldo', 'Kredit')->groupBy('nama_asset')->join('accounts', 'assets.nama_asset', '=', 'accounts.nama_akun')->first();
             // $kas_awal = Asset::select(DB::raw('SUM(nominal) as nominal_'), 'nama_asset')->where('nama_asset', $item->nama_akun)->where('id_pengguna', $id_pengguna)->where('created_at', 'LIKE', '%'.$id.'%')->groupBy('nama_asset')->first();
             // $posting_debit = General_journal::select(DB::raw('SUM(general_journals.debit) as pdebit'), 'transactions.debit')->where('general_journals.id_pengguna', $id_pengguna)->where('general_journals.tanggal', 'LIKE', '%'.$year.'%')->where('transactions.debit', $item->nama_akun)->groupBy('transactions.debit')->join('transactions', 'general_journals.id_transaksi', '=', 'transactions.id')->first();
             $posting_debit = General_journal::select(DB::raw('SUM(general_journals.debit) as pdebit'))->where('general_journals.id_pengguna', $id_pengguna)->where('general_journals.tanggal', 'LIKE', '%'.$year.'%')->where('transactions.debit', $item->nama_akun)->join('transactions', 'general_journals.id_transaksi', '=', 'transactions.id')->first();

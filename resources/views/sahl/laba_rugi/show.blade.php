@@ -5,7 +5,7 @@
 <nav class="page-breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/laba-rugi">Laba Rugi</a></li>
-    <li class="breadcrumb-item active" aria-current="page">2022</li>
+    <li class="breadcrumb-item active" aria-current="page">{{$year}}</li>
   </ol>
 </nav>
 

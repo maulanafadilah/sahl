@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Account;
 use App\Capital;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CapitalController extends Controller
 {
@@ -15,9 +16,10 @@ class CapitalController extends Controller
      */
     public function index()
     {
-        $create = 'Modal';
-        $account = Account::select('id', 'nomor_akun', 'nama_akun')->where('nomor_akun', 'LIKE', '3%')->get();
-        return view('sahl.input.capital.create', compact('create', 'account'));
+        $capital = Capital::select('id', 'nama_modal', 'nominal', 'keterangan', DB::raw('DATE(created_at) as date'))->where('id_pengguna', auth()->user()->id)->get();
+
+        // return $debt;
+        return view('sahl.input.capital.index', compact('capital'));
     }
 
     /**
@@ -27,7 +29,9 @@ class CapitalController extends Controller
      */
     public function create()
     {
-        //
+        $create = 'Modal';
+        $account = Account::select('id', 'nomor_akun', 'nama_akun')->where('nomor_akun', 'LIKE', '3%')->get();
+        return view('sahl.input.capital.create', compact('create', 'account'));
     }
 
     /**
@@ -66,9 +70,14 @@ class CapitalController extends Controller
      * @param  \App\Capital  $capital
      * @return \Illuminate\Http\Response
      */
-    public function edit(Capital $capital)
+    public function edit( $id)
     {
-        //
+        $account = Account::select('id', 'nomor_akun', 'nama_akun')->where('nomor_akun', 'LIKE', '3%')->get();
+        $capital = Capital::select('*')->where('id', $id)->get()[0];
+
+
+        // return $debt;
+        return view('sahl.input.capital.edit', compact( 'account', 'capital'));
     }
 
     /**
@@ -78,9 +87,16 @@ class CapitalController extends Controller
      * @param  \App\Capital  $capital
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Capital $capital)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'nama_modal' => 'required',
+            'nominal' => 'required',
+            'keterangan' => 'nullable',
+        ]);
+
+        Capital::where('id', $id)->update($validatedData);
+        return redirect('modal')->with('success', 'Berhasil Mengubah Modal!');
     }
 
     /**
@@ -89,8 +105,9 @@ class CapitalController extends Controller
      * @param  \App\Capital  $capital
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Capital $capital)
+    public function destroy($id)
     {
-        //
+        Capital::destroy($id);
+        return redirect('modal')->with('success', 'Berhasil Menghapus Modal!');
     }
 }

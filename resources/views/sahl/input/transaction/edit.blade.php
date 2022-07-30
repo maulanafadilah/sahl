@@ -43,11 +43,11 @@
 
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label">Keterangan</label>
-                    <textarea class="form-control" name="keterangan" id="exampleFormControlTextarea1" value="{{$transaction->keterangan}}" rows="5"></textarea>
+                    <textarea class="form-control" name="keterangan" id="exampleFormControlTextarea1" rows="5">{{$transaction->keterangan}}</textarea>
                 </div>
                 
 
-                <button class="btn btn-primary" type="submit">Tambah</button>
+                <button class="btn btn-primary" type="submit">Ubah</button>
             </form>
         </div>
       </div>

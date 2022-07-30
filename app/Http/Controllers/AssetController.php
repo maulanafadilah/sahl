@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Asset;
 use App\Account;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AssetController extends Controller
 {
@@ -15,9 +16,8 @@ class AssetController extends Controller
      */
     public function index()
     {
-        $create = 'Asset';
-        $account = Account::select('id', 'nomor_akun', 'nama_akun')->where('nomor_akun', 'LIKE', '1%')->get();
-        return view('sahl.input.asset.create', compact('create', 'account'));
+        $asset = Asset::select('id', 'nama_asset', 'nominal', 'keterangan', DB::raw('DATE(created_at) as date'))->where('id_pengguna', auth()->user()->id)->get();
+        return view('sahl.input.asset.index', compact('asset'));
     }
 
     /**
@@ -27,7 +27,9 @@ class AssetController extends Controller
      */
     public function create()
     {
-        //
+        $create = 'Asset';
+        $account = Account::select('id', 'nomor_akun', 'nama_akun')->where('nomor_akun', 'LIKE', '1%')->get();
+        return view('sahl.input.asset.create', compact('create', 'account'));
     }
 
     /**
@@ -66,9 +68,11 @@ class AssetController extends Controller
      * @param  \App\Asset  $asset
      * @return \Illuminate\Http\Response
      */
-    public function edit(Asset $asset)
+    public function edit($id)
     {
-        //
+        $account = Account::select('id', 'nomor_akun', 'nama_akun')->where('nomor_akun', 'LIKE', '1%')->get();
+        $asset = Asset::select('*')->where('id', $id)->get()[0];
+        return view('sahl.input.asset.edit', compact( 'account', 'asset'));
     }
 
     /**
@@ -78,9 +82,15 @@ class AssetController extends Controller
      * @param  \App\Asset  $asset
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Asset $asset)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'nama_asset' => 'required',
+            'nominal' => 'required',
+            'keterangan' => 'nullable',
+        ]);
+        Asset::where('id', $id)->update($validatedData);
+        return redirect('asset')->with('success', 'Berhasil Mengubah Asset!');
     }
 
     /**
@@ -89,8 +99,9 @@ class AssetController extends Controller
      * @param  \App\Asset  $asset
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Asset $asset)
+    public function destroy($id)
     {
-        //
+        Asset::destroy($id);
+        return redirect('asset')->with('success', 'Berhasil Menghapus Asset!');
     }
 }

@@ -102,8 +102,10 @@ class LabaRugiController extends Controller
         $laba_rugi_bersih = $laba_kotor + $total_pendapatan - $total_beban;
 
         $check_db = Laba_rugi::select('total_saldo')->where('id_pengguna', $id_pengguna)->where('tahun', $year)->first();
+        // var_dump($check_db);
+        // die;
         switch(true){
-            case($check_db == null):
+            case($check_db == NULL):
                 Laba_rugi::create(['total_saldo'=>$laba_rugi_bersih, 'tahun'=>$year, 'id_pengguna'=>$id_pengguna]);
                 break;
             case($check_db->total_saldo != $laba_rugi_bersih):
@@ -111,7 +113,6 @@ class LabaRugiController extends Controller
                 break;
         }
 
-        // return $check_db;
         return view('sahl.laba_rugi.show', compact('year', 'company', 'penjualan', 'retur_penjualan', 'potongan_penjualan', 'penjualan_bersih', 'persediaan_awal', 'pembelian', 'retur_pembelian', 'potongan_pembelian', 'pembelian_bersih', 'persediaan_dijual', 'persediaan_akhir', 'pokok_penjualan', 'laba_kotor', 'pendapatan_jasa', 'pendapatan_sewa', 'pendapatan_lain', 'total_pendapatan', 'beban_gaji', 'beban_listrik', 'beban_perlengkapan', 'beban_sewa', 'beban_penyusutan', 'total_beban', 'laba_rugi_bersih'));
     }
 
