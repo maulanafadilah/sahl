@@ -8,6 +8,9 @@ use App\Http\Controllers\ModalController;
 use App\Http\Controllers\SuperBookController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\LaporanNeracaController;
+use App\Http\Controllers\NeracaController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,6 +35,8 @@ Route::resource('buku-besar', SuperBookController::class)->middleware('auth');
 Route::resource('buku-besar.accounts', AccountController::class)->scoped([
     'account' => 'nama_akun',
 ])->middleware('auth');
+Route::resource('neraca_saldo',NeracaController::class)->middleware('auth');
+Route::resource('neraca_laporan',LaporanNeracaController::class)->middleware('auth');
 
 Route::get('laba-rugi', 'App\Http\Controllers\HomeController@laba_rugi')->middleware('auth');
 
