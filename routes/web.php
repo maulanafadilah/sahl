@@ -10,6 +10,8 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\LabaRugiController;
 use App\Http\Controllers\PerubahanModalController;
+use App\Http\Controllers\LaporanNeracaController;
+use App\Http\Controllers\NeracaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +37,8 @@ Route::resource('buku-besar', SuperBookController::class)->middleware('auth');
 Route::resource('buku-besar.accounts', AccountController::class)->scoped([
     'account' => 'nama_akun',
 ])->middleware('auth');
+Route::resource('neraca_saldo',NeracaController::class)->middleware('auth');
+Route::resource('neraca_laporan',LaporanNeracaController::class)->middleware('auth');
 
 Route::resource('laba-rugi', LabaRugiController::class)->middleware('auth');
 Route::resource('perubahan-modal', PerubahanModalController::class)->middleware('auth');
