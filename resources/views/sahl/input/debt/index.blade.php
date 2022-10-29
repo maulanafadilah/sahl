@@ -41,7 +41,7 @@
                   {{$item->nama_utang}}
                 </td>
                 <td>
-                  {{$item->nominal}}
+                  @currency($item->nominal)
                 </td>
                 <td>
                   {{$item->keterangan}}

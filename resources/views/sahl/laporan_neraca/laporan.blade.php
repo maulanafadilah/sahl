@@ -35,32 +35,32 @@
                         <tbody>                  
                           <tr>
                             <td><strong>Kas</strong></td>
-                            <td>Rp {{ $kas->total_saldo }}</td>
+                            <td>@currency($kas->total_saldo)</td>
                           </tr>                                                                                                       
                           <tr>
                             <td><strong> Piutang Usaha</strong></td>
-                            <td>Rp {{ $piutang_usaha->total_saldo }}</td>
+                            <td>@currency($piutang_usaha->total_saldo)</td>
                           </tr>                     
                
                           <tr>
                             <td><strong> persediaan </strong></td>
-                            <td>Rp {{ $persediaan->total_saldo }}</td>
+                            <td>@currency($persediaan->total_saldo)</td>
                           </tr>                     
                            <tr>
                                 <td><strong>Perlengkapan</strong></td>
-                                <td>Rp {{ $perlengkapan->total_saldo }}</td>
+                                <td>@currency($perlengkapan->total_saldo)</td>
                               </tr>                                 
                           <tr>
                             <td><strong>Sewa Dibayar Di Muka</strong></td>
-                            <td>Rp {{ $Sewa_Dibayar_Di_Muka->total_saldo }}</td>
+                            <td>@currency($Sewa_Dibayar_Di_Muka->total_saldo)</td>
                           </tr>                                             
                           <tr>
                             <td><strong>Aset Lancar Lainnya</strong></td>
-                            <td>Rp {{ $Aset_Lancar_Lainnya->total_saldo }}</td>
+                            <td>@currency($Aset_Lancar_Lainnya->total_saldo)</td>
                           </tr>
                              <tr>
                             <td><strong>Total Aset Lancar</strong></td>
-                            <td>Rp {{ $total_asset_lancar }}</td>
+                            <td>@currency($total_asset_lancar)</td>
                           </tr>
                         </tbody>
                       </table>
@@ -79,15 +79,15 @@
                         <tbody>                        
                               <tr>
                                 <td><strong>Utang Usaha</strong></td>
-                                <td>Rp {{ $Utang_usaha->total_saldo }}</td>
+                                <td>@currency($Utang_usaha->total_saldo)</td>
                               </tr>                     
                               <tr>
                                 <td><strong>Utang Beban</strong></td>
-                                <td>Rp {{ $Utang_beban->total_Saldo }}</td>
+                                <td>@currency($Utang_beban->total_Saldo)</td>
                               </tr>
                               <tr>                 
                                 <td><strong>Total Utang Lancar</strong></td>
-                                <td>Rp {{ $total_utang_lancar }}</td>
+                                <td>@currency($total_utang_lancar)</td>
                               </tr>                                                              
                         </tbody>
                       </table>
@@ -96,7 +96,7 @@
                             <table class="table table-hover table-bordered">
                               <tr>
                                 <td><strong>Utang Bank</strong></td>
-                                <td>Rp {{ $Utang_Bank->total_saldo }}</td>
+                                <td>@currency($Utang_Bank->total_saldo)</td>
                               </tr>
                               <tr>
                                 <td><strong>Total Utang Jangka Panjang</strong></td>
@@ -121,43 +121,43 @@
                         <tbody>                    
                               <tr>
                                 <td><strong>Tanah</strong></td>
-                                <td>Rp {{ $Tanah->total_saldo }}</td>
+                                <td>@currency($Tanah->total_saldo)</td>
                               </tr>                     
                               <tr>
                                 <td><strong>Bangunan</strong></td>
-                                <td>Rp {{ $Bangunan->total_Saldo }}</td>
+                                <td>@currency($Bangunan->total_Saldo)</td>
                               </tr>                    
                               <tr>
                                 <td><strong>Akumulasi Penyusutan Bangunan</strong></td>
-                                <td>Rp {{ $Akumulasi_Penyusutan_Bangunan->total_saldo }}</td>
+                                <td>@currency($Akumulasi_Penyusutan_Bangunan->total_saldo)</td>
                               </tr>                                                     
                               <tr>
                                 <td><strong>Kendaraan</strong></td>
-                                <td>Rp {{ $Kendaraan->total_saldo }}</td>
+                                <td>@currency($Kendaraan->total_saldo)</td>
                               </tr>                     
                           <tr>
                             <td><strong>Akumulasi Penysusutan kendaraan</strong></td>
-                          <td>Rp {{ $Akumulasi_Penyusutan_Kendaraan->total_saldo }}</td>
+                          <td>@currency($Akumulasi_Penyusutan_Kendaraan->total_saldo)</td>
                           </tr>                                                
                           <tr>
                             <td><strong>Peralatan</strong></td>
-                            <td>Rp {{ $Peralatan->total_saldo }}</td>
+                            <td>@currency($Peralatan->total_saldo)</td>
                           </tr>                  
                       <tr>
                     <td><strong>Akumulasi Penyusutan Peralatan</strong></td>
-                      <td>Rp {{ $Akumulasi_Penyusutan_Peralatan->total_saldo }}</td>
+                      <td>@currency($Akumulasi_Penyusutan_Peralatan->total_saldo)</td>
                       </tr>                                           
                       <tr>
                         <td><strong>Aset Tetap Lainnya</strong></td>
-                        <td>Rp {{ $Aset_Tetap_Lainnya->total_saldo }}</td>
+                        <td>@currency($Aset_Tetap_Lainnya->total_saldo)</td>
                       </tr>            
                       <tr>
                         <td>Aset Lainnya</td>
-                        <td>Rp {{ $Aset_Lainnya->total_Saldo }}</td>
+                        <td>@currency($Aset_Lainnya->total_Saldo)</td>
                       </tr>               
                   <tr>
                       <td><strong>Total Aset Tetap</strong></td>
-                      <td>Rp {{ $total_aset_tetap }}</td>
+                      <td>@currency($total_aset_tetap)</td>
                   </tr>
                         </tbody>
                       </table>
@@ -174,7 +174,7 @@
                         <tbody>                          
                           <tr>
                             <td><strong>Modal Akhir</strong></td>
-                            <td>Rp {{ $Modal->total_saldo }}</td>
+                            <td>@currency($Modal->total_saldo)</td>
                           </tr>
                             </tbody>
                       </table>
@@ -191,21 +191,21 @@
                         <tbody>                          
                           <tr>
                             <td><strong>TOTAL ASSET</strong></td>
-                            <td>Rp {{ $total_asset }}</td>
+                            <td>@currency($total_asset)</td>
                           </tr>
                           <tr>
                             <td><strong>TOTAL UTANG</strong></td>
-                            <td>Rp {{ $total_utang }}</td>
+                            <td>@currency($total_utang)</td>
                           </tr>                          
                           <tr>
                             <td><strong>TOTAL UTANG DAN MODAL</strong></td>
-                            <td>Rp {{  $total_utang_dan_modal }}</td>
+                            <td>@currency( $total_utang_dan_modal)</td>
                           </tr>
                         </tbody>                       
                       </table>
                       <br>
                       <center>
-                        <a href="{{ url('/cetakpdf') }}" class="btn btn-primary">cetak pdf</a>
+                        <a href="{{ url('/cetakpdf') }}" class="btn btn-primary">Cetak Pdf</a>
                       </center>
                   </div>
                 </div>

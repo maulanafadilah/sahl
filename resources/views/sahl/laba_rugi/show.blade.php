@@ -44,7 +44,7 @@
                   
                 </td>
                 <td>
-                  Rp{{$penjualan->total_saldo}}
+                  @currency($penjualan->total_saldo)
                 </td>
                 <td>
                   
@@ -60,7 +60,7 @@
                   
                 </td>
                 <td>
-                Rp{{$retur_penjualan->total_saldo}}
+                @currency($retur_penjualan->total_saldo)
                 </td>
                 <td>
                   
@@ -76,7 +76,7 @@
                   
                 </td>
                 <td>
-                  Rp{{$potongan_penjualan->total_saldo}}
+                  @currency($potongan_penjualan->total_saldo)
                 </td>
                 <td>
                 </td>
@@ -94,7 +94,7 @@
                   
                 </td>
                 <td>
-                  Rp{{$penjualan_bersih}}
+                  @currency($penjualan_bersih)
                 </td>
               </tr>
             </thead>
@@ -112,7 +112,7 @@
                   
                 </td>
                 <td>
-                  Rp{{$persediaan_awal->total_saldo}}
+                  @currency($persediaan_awal->total_saldo)
                 </td>
               </tr>
             </tbody>
@@ -140,7 +140,7 @@
                   Pembelian
                 </td>
                 <td>
-                  Rp{{$pembelian->total_saldo}}
+                  @currency($pembelian->total_saldo)
                 </td>
                 <td>
                 </td>
@@ -155,7 +155,7 @@
                   Retur Pembelian
                 </td>
                 <td>
-                  Rp{{$pembelian->total_saldo}}
+                  @currency($pembelian->total_saldo)
                 </td>
                 <td>
                 </td>
@@ -170,7 +170,7 @@
                   Potongan Pembelian
                 </td>
                 <td>
-                  Rp{{$pembelian->total_saldo}}
+                  @currency($pembelian->total_saldo)
                 </td>
                 <td>
                 </td>
@@ -188,7 +188,7 @@
                   
                 </td>
                 <td>
-                  Rp{{$pembelian_bersih}}
+                  @currency($pembelian_bersih)
                 </td>
                 <td>
                 </td>
@@ -202,7 +202,7 @@
                 <td>
                 </td>
                 <td>
-                  Rp{{$persediaan_dijual}}
+                  @currency($persediaan_dijual)
                 </td>
                 <td>
                   
@@ -217,7 +217,7 @@
                 <td>
                 </td>
                 <td>
-                  Rp{{$persediaan_akhir->nominal}}
+                  @currency($persediaan_akhir->nominal)
                 </td>
                 <td>
                   
@@ -234,7 +234,7 @@
                 <td>
                 </td>
                 <td>
-                  Rp{{$pokok_penjualan}}
+                  @currency($pokok_penjualan)
                   
                 </td>
               </tr>
@@ -250,7 +250,7 @@
                 <td>
                   </td>
                   <td>
-                  Rp{{$laba_kotor}}
+                  @currency($laba_kotor)
                 </td>
               </tr>
             </thead>
@@ -276,7 +276,7 @@
                 <td>
                 </td>
                 <td>
-                  Rp{{$pendapatan_jasa->total_saldo}}
+                  @currency($pendapatan_jasa->total_saldo)
                 </td>
                 <td>
                 </td>
@@ -290,7 +290,7 @@
                 <td>
                 </td>
                 <td>
-                Rp{{$pendapatan_sewa->total_saldo}}
+                @currency($pendapatan_sewa->total_saldo)
                 </td>
                 <td>
                 </td>
@@ -304,7 +304,7 @@
                 <td>
                 </td>
                 <td>
-                Rp{{$pendapatan_lain->total_saldo}}
+                @currency($pendapatan_lain->total_saldo)
                 </td>
                 <td>
                 </td>
@@ -321,7 +321,7 @@
                 <td>
                   </td>
                   <td>
-                  Rp{{$total_pendapatan}}
+                  @currency($total_pendapatan)
                 </td>
               </tr>
             </thead>
@@ -348,7 +348,7 @@
                 <td>
                 </td>
                 <td>
-                Rp{{$beban_gaji->total_saldo}}
+                @currency($beban_gaji->total_saldo)
                 </td>
                 <td>
                 </td>
@@ -362,7 +362,7 @@
                 <td>
                 </td>
                 <td>
-                Rp{{$beban_listrik->total_saldo}}
+                @currency($beban_listrik->total_saldo)
                 </td>
                 <td>
                 </td>
@@ -376,7 +376,7 @@
                 <td>
                 </td>
                 <td>
-                Rp{{$beban_perlengkapan->total_saldo}}
+                @currency($beban_perlengkapan->total_saldo)
                 </td>
                 <td>
                 </td>
@@ -390,7 +390,7 @@
                 <td>
                 </td>
                 <td>
-                Rp{{$beban_sewa->total_saldo}}
+                @currency($beban_sewa->total_saldo)
                 </td>
                 <td>
                 </td>
@@ -404,7 +404,7 @@
                 <td>
                 </td>
                 <td>
-                Rp{{$beban_penyusutan->total_saldo}}
+                @currency($beban_penyusutan->total_saldo)
                 </td>
                 <td>
                 </td>
@@ -421,7 +421,7 @@
                 <td>
                   </td>
                   <td>
-                  Rp{{$total_beban}}
+                  @currency($total_beban)
                 </td>
               </tr>
             </thead>
@@ -436,7 +436,7 @@
                 <td>
                   </td>
                   <td>
-                  Rp{{$laba_rugi_bersih}}
+                  @currency($laba_rugi_bersih)
                 </td>
               </tr>
             </thead>

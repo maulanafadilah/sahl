@@ -41,11 +41,11 @@
                   {{$item->transaksi_1}}  
                   </div>
                   <div class="row">
-                  {{$item->transaksi_2}} 
+                  &nbsp;{{$item->transaksi_2}} 
                   </div>
                 <td>
                   <div class="row">
-                  Rp {{$item->debit}}  
+                  @currency($item->debit)  
                   </div>
                   <div class="row">
                     -
@@ -55,7 +55,7 @@
                     -
                   </div>
                   <div class="row">
-                  Rp {{$item->kredit}}  
+                  @currency($item->kredit)
                   </div>
                   </td><td>
                   <div class="row">

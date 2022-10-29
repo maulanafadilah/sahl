@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Asset;
 use App\Account;
+use Illuminate\Auth\Events\Validated;
+use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -40,14 +42,19 @@ class AssetController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
+        // $a = explode(",", $request['nominal']);
         $validatedData = $request->validate([
             'nama_asset' => 'required',
             'nominal' => 'required',
             'keterangan' => 'nullable',
         ]);
 
-        Asset::create($validatedData + ['id_pengguna'=>auth()->user()->id]);
+        $nominal = str_replace( array( '.', 'Rp',
+        ',' ), '', $validatedData['nominal']);
+        $nominal = substr($nominal, 0, -2);
+        // return $a;
+
+        Asset::create(['nama_asset'=>$validatedData['nama_asset'], 'keterangan'=>$validatedData['keterangan'],  'nominal'=>$nominal, 'id_pengguna'=>auth()->user()->id]);
         return redirect('asset')->with('success', 'Berhasil Menambahkan Asset!');
     }
 
@@ -89,7 +96,12 @@ class AssetController extends Controller
             'nominal' => 'required',
             'keterangan' => 'nullable',
         ]);
-        Asset::where('id', $id)->update($validatedData);
+
+        $nominal = str_replace( array( '.', 'Rp',
+        ',' ), '', $validatedData['nominal']);
+        $nominal = substr($nominal, 0, -2);
+        
+        Asset::where('id', $id)->update(['nama_asset'=>$validatedData['nama_asset'], 'keterangan'=>$validatedData['keterangan'],  'nominal'=>$nominal]);
         return redirect('asset')->with('success', 'Berhasil Mengubah Asset!');
     }
 

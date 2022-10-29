@@ -60,18 +60,22 @@ class AccountController extends Controller
         $posting_debit = General_journal::select(DB::raw('SUM(general_journals.debit) as pdebit'))->where('general_journals.id_pengguna', $id_pengguna)->where('general_journals.tanggal', 'LIKE', '%'.$year.'%')->where('transactions.debit', $acc)->join('transactions', 'general_journals.id_transaksi', '=', 'transactions.id')->first();
         $posting_kredit = General_journal::select(DB::raw('SUM(general_journals.kredit) as pkredit'))->where('general_journals.id_pengguna', $id_pengguna)->where('general_journals.tanggal', 'LIKE', '%'.$year.'%')->where('transactions.kredit', $acc)->join('transactions', 'general_journals.id_transaksi', '=', 'transactions.id')->get()[0];
 
+        $gdebit = General_journal::select('general_journals.debit as gdebit', 'general_journals.tanggal', 'transactions.nama_transaksi')->where('general_journals.id_pengguna', $id_pengguna)->where('general_journals.tanggal', 'LIKE', '%'.$year.'%')->where('transactions.debit', $acc)->join('transactions', 'general_journals.id_transaksi', '=', 'transactions.id')->get();
+        $gkredit = General_journal::select('general_journals.kredit as gkredit', 'general_journals.tanggal', 'transactions.nama_transaksi')->where('general_journals.id_pengguna', $id_pengguna)->where('general_journals.tanggal', 'LIKE', '%'.$year.'%')->where('transactions.kredit', $acc)->join('transactions', 'general_journals.id_transaksi', '=', 'transactions.id')->get();
+        // return $gkredit;
+
         $jenis_saldo = Superbook::select('jenis_saldo')->where('nama_akun', $acc)->where('id_pengguna', $id_pengguna)->get()[0];
         // return $jenis_saldo;
         if ($jenis_saldo->jenis_saldo == "Debit"){
             $total_saldo_debit = Superbook::select('total_saldo as total_saldo_debit')->where('nama_akun', $acc)->where('id_pengguna', $id_pengguna)->get()[0];
             $total_saldo_kredit= false;
 
-            return view('sahl.buku_besar.detail', compact('year', 'acc', 'id_pengguna', 'saldo_awal_kredit', 'saldo_awal_debit', 'posting_debit', 'posting_kredit', 'total_saldo_kredit', 'total_saldo_debit'));
+            return view('sahl.buku_besar.detail', compact('year', 'acc', 'id_pengguna', 'saldo_awal_kredit', 'saldo_awal_debit', 'posting_debit', 'posting_kredit', 'total_saldo_kredit', 'total_saldo_debit', 'gdebit', 'gkredit'));
         }elseif($jenis_saldo->jenis_saldo == "Kredit"){
             $total_saldo_kredit = Superbook::select('total_saldo as total_saldo_kredit')->where('nama_akun', $acc)->where('id_pengguna', $id_pengguna)->get()[0];
             $total_saldo_debit= false;
             
-            return view('sahl.buku_besar.detail', compact('year', 'acc', 'id_pengguna', 'saldo_awal_kredit', 'saldo_awal_debit', 'posting_debit', 'posting_kredit', 'total_saldo_kredit', 'total_saldo_debit'));
+            return view('sahl.buku_besar.detail', compact('year', 'acc', 'id_pengguna', 'saldo_awal_kredit', 'saldo_awal_debit', 'posting_debit', 'posting_kredit', 'total_saldo_kredit', 'total_saldo_debit', 'gdebit', 'gkredit'));
         }else{
             $total_saldo_kredit= false;
             $total_saldo_debit = false;

@@ -44,6 +44,70 @@
                               </tr>
                             </thead>
                             <tbody>
+                              @foreach($gdebit as $gd)
+                              <tr>
+                                <td>
+                                  {{$gd->tanggal}}
+                                </td>
+                                <td>
+                                  {{$gd->nama_transaksi}}
+                                </td>
+                                <td>
+                                  @currency($gd->gdebit)
+                                </td>
+                                <td>
+                                  
+                                </td>
+                                <td>
+                                 
+                                </td>
+                                <td>
+                                  
+                                </td>
+                              </tr>
+                              @endforeach
+                              @foreach($gkredit as $gk)
+                              <tr>
+                                <td>
+                                  {{$gk->tanggal}}
+                                </td>
+                                <td>
+                                  {{$gk->nama_transaksi}}
+                                </td>
+                                <td>
+                                  
+                                </td>
+                                <td>
+                                @currency($gk->gkredit)
+                                </td>
+                                <td>
+                                 
+                                </td>
+                                <td>
+                                  
+                                </td>
+                              </tr>
+                              @endforeach
+                              <tr>
+                                <td>
+                                  
+                                </td>
+                                <td>
+                                 
+                                </td>
+                                <td>
+                                  
+                                </td>
+                                <td>
+                                  
+                                </td>
+                                <td>
+                                  
+                                </td>
+                                <td>
+                                  
+                                </td>
+                              </tr>
                               <tr>
                                 <td>
                                   1 Des
@@ -59,14 +123,14 @@
                                 </td>
                                 <td>
                                   @if($saldo_awal_debit->nominal_debit != null)
-                                  Rp{{$saldo_awal_debit->nominal_debit}}
+                                    @currency($saldo_awal_debit->nominal_debit)
                                   @else
                                   -
                                   @endif
                                 </td>
                                 <td>
                                   @if($saldo_awal_kredit->nominal_kredit != null)
-                                  Rp{{$saldo_awal_kredit->nominal_kredit}}
+                                    @currency($saldo_awal_kredit->nominal_kredit)
                                   @else
                                   -
                                   @endif
@@ -80,21 +144,21 @@
                                   Posting
                                 </td>
                                 <td>
-                                  Rp{{$posting_debit->pdebit}}
+                                  @currency($posting_debit->pdebit)
                                 </td>
                                 <td>
-                                  Rp{{$posting_kredit->pkredit}}
+                                  @currency($posting_kredit->pkredit)
                                 </td>
                                 <td>
                                   @if($total_saldo_debit == true)
-                                  Rp{{$total_saldo_debit->total_saldo_debit}}
+                                  @currency($total_saldo_debit->total_saldo_debit)
                                   @else
                                   -
                                   @endif
                                 </td>
                                 <td>
                                   @if($total_saldo_kredit == true)
-                                  Rp{{$total_saldo_kredit->total_saldo_kredit}}
+                                  @currency($total_saldo_kredit->total_saldo_kredit)
                                   @else
                                   -
                                   @endif

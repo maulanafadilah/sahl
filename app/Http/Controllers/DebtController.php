@@ -52,7 +52,11 @@ class DebtController extends Controller
             'keterangan' => 'nullable',
         ]);
 
-        Debt::create($validatedData + ['id_pengguna'=>auth()->user()->id]);
+        $nominal = str_replace( array( '.', 'Rp',
+        ',' ), '', $validatedData['nominal']);
+        $nominal = substr($nominal, 0, -2);
+
+        Debt::create(['nama_utang'=>$validatedData['nama_utang'], 'nominal'=>$nominal,'keterangan'=>$validatedData['keterangan'], 'id_pengguna'=>auth()->user()->id]);
         return redirect('utang')->with('success', 'Berhasil Menambahkan Utang!');
     }
 
@@ -98,7 +102,11 @@ class DebtController extends Controller
             'keterangan' => 'nullable',
         ]);
 
-        Debt::where('id', $id)->update($validatedData);
+        $nominal = str_replace( array( '.', 'Rp',
+        ',' ), '', $validatedData['nominal']);
+        $nominal = substr($nominal, 0, -2);
+
+        Debt::where('id', $id)->update(['nama_utang'=>$validatedData['nama_utang'], 'nominal'=>$nominal,'keterangan'=>$validatedData['keterangan']]);
         return redirect('utang')->with('success', 'Berhasil Mengubah Utang!');
     }
 

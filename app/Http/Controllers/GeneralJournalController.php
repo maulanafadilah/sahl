@@ -87,11 +87,15 @@ class GeneralJournalController extends Controller
             'keterangan' => 'nullable',
         ]);
 
+        $nominal = str_replace( array( '.', 'Rp',
+        ',' ), '', $validatedData['nominal']);
+        $nominal = substr($nominal, 0, -2);
+
         General_journal::where('id', $id)
         ->update(['tanggal' => $validatedData['tanggal'],
         'id_transaksi' => $validatedData['transaksi'],
-        'debit' => $validatedData['nominal'],
-        'kredit' => $validatedData['nominal'],
+        'debit' => $nominal,
+        'kredit' => $nominal,
         'keterangan'=> $validatedData['keterangan'],
         'id_pengguna' => auth()->user()->id]);
         return redirect('jurnal-umum')->with('success', 'Berhasil Mengubah Transaksi!');

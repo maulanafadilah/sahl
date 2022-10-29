@@ -49,7 +49,11 @@ class CapitalController extends Controller
             'keterangan' => 'nullable'
         ]);
 
-        Capital::create($validatedData + ['id_pengguna'=>auth()->user()->id]);
+        $nominal = str_replace( array( '.', 'Rp',
+        ',' ), '', $validatedData['nominal']);
+        $nominal = substr($nominal, 0, -2);
+
+        Capital::create(['nama_modal'=>$validatedData['nama_modal'], 'nominal'=>$nominal, 'keterangan'=>$validatedData['keterangan'],'id_pengguna'=>auth()->user()->id]);
         return redirect('modal')->with('success', 'Berhasil Menambahkan Modal!');
     }
 
@@ -95,7 +99,11 @@ class CapitalController extends Controller
             'keterangan' => 'nullable',
         ]);
 
-        Capital::where('id', $id)->update($validatedData);
+        $nominal = str_replace( array( '.', 'Rp',
+        ',' ), '', $validatedData['nominal']);
+        $nominal = substr($nominal, 0, -2);
+
+        Capital::where('id', $id)->update(['nama_modal'=>$validatedData['nama_modal'], 'nominal'=>$nominal, 'keterangan'=>$validatedData['keterangan']]);
         return redirect('modal')->with('success', 'Berhasil Mengubah Modal!');
     }
 

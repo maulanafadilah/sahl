@@ -41,7 +41,7 @@
                   {{$item->nama_asset}}
                 </td>
                 <td>
-                  {{$item->nominal}}
+                  @currency($item->nominal)
                 </td>
                 <td>
                   {{$item->keterangan}}

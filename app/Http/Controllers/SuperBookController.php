@@ -58,7 +58,7 @@ class SuperBookController extends Controller
     {
         $year = $id;
         $id_pengguna = auth()->user()->id;
-        $account = Account::select('nomor_akun', 'nama_akun', 'tipe_saldo')->get();
+        $account = Account::select('nomor_akun', 'nama_akun', 'tipe_saldo')->orderBy('nomor_akun', 'asc')->get();
 
         foreach($account as $item){
             $check_input = Account::select('jenis_input', 'nama_akun')->where('nama_akun', $item->nama_akun)->first();

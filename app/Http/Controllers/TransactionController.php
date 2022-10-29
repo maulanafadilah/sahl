@@ -46,12 +46,15 @@ class TransactionController extends Controller
             'keterangan' => 'nullable',
         ]);
 
+        $nominal = str_replace( array( '.', 'Rp',
+        ',' ), '', $validatedData['nominal']);
+        $nominal = substr($nominal, 0, -2);
         // return $validatedData;
 
         General_journal::create(['tanggal' => $validatedData['tanggal'],
         'id_transaksi' => $validatedData['transaksi'],
-        'debit' => $validatedData['nominal'],
-        'kredit' => $validatedData['nominal'],
+        'debit' => $nominal,
+        'kredit' => $nominal,
         'keterangan'=> $validatedData['keterangan'],
         'id_pengguna' => auth()->user()->id]);
         return redirect('transaksi')->with('success', 'Berhasil Menambahkan Transaksi!');
